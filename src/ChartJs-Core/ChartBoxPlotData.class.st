@@ -47,13 +47,27 @@ ChartBoxPlotData class >> lowest: aLowestValue firstQuartile: aFirstQuartileValu
 		yourself
 ]
 
-{ #category : #conversion }
+{ #category : #enumerating }
 ChartBoxPlotData >> do: aBlockClosure [ 
 	aBlockClosure value: self lowest.
 	aBlockClosure value: self firstQuartile - self lowest .
 	aBlockClosure value: self median - self firstQuartile.
 	aBlockClosure value: self thirdQuartile - self median.
 	aBlockClosure value: self highest - self thirdQuartile.
+]
+
+{ #category : #enumerating }
+ChartBoxPlotData >> do: aBlockClosure separatedBy: aSeparationBlock [
+
+	aBlockClosure value: self lowest.
+	aSeparationBlock value.
+	aBlockClosure value: self firstQuartile - self lowest.
+	aSeparationBlock value.
+	aBlockClosure value: self median - self firstQuartile.
+	aSeparationBlock value.
+	aBlockClosure value: self thirdQuartile - self median.
+	aSeparationBlock value.
+	aBlockClosure value: self highest - self thirdQuartile
 ]
 
 { #category : #accessing }
@@ -96,7 +110,7 @@ ChartBoxPlotData >> median: anObject [
 	median := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #converting }
 ChartBoxPlotData >> neoJsonOn: writer [
 	writer writeList: self
 ]

@@ -9,14 +9,15 @@ Class {
 		'title',
 		'valueDisplayBlock',
 		'singleValueTooltip',
-		'multiValueTooltip'
+		'multiValueTooltip',
+		'options'
 	],
 	#category : #'ChartJs-Core-Model'
 }
 
 { #category : #tooltip }
 ChartDataAbstract >> adaptToolTip: aToolTipString [
-	^ (Array with: '<label>' -> '<%= datasetLabel %>' with: '<value>' -> '<%= value %>' with: '<key>' -> '<%= label %>')
+	^ (Array with: '<label>' -> '<data.labels[tooltipItem.index]>' with: '<value>' -> 'data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]' with: '<key>' -> '<%= label %>')
 		inject: aToolTipString
 		into: [ :tooltip :asso | tooltip copyReplaceAll: asso key with: asso value ]
 ]
@@ -38,10 +39,26 @@ ChartDataAbstract >> chartType: aChartType [
 ]
 
 { #category : #options }
-ChartDataAbstract >> enrichOptions: anOptionDictionary [
-	self singleValueTooltip ifNotNil: [ anOptionDictionary at: #tooltipTemplate put: self singleValueTooltipJs ].
-	self multiValueTooltip ifNotNil: [ anOptionDictionary at: #multiTooltipTemplate put: self multiValueTooltipJs ].
+ChartDataAbstract >> defineTooltipFunction: aString in: anOptionDictionary [
 	
+	| function |
+	function := (aString beginsWith: 'function')
+		ifTrue: [ChartJsCodeFragment from: aString]
+		ifFalse: [ChartJsCodeFragment tooltipLabelFunction: aString].
+
+	anOptionDictionary
+		tooltipsAt: #callbacks
+		put:
+			((Dictionary new)
+				at: #label put: function;
+				yourself)
+]
+
+{ #category : #options }
+ChartDataAbstract >> enrichOptions: anOptionDictionary [
+	
+	self singleValueTooltip ifNotNil: [:str | self defineTooltipFunction: str in: anOptionDictionary].
+	self multiValueTooltip ifNotNil: [:str | self defineTooltipFunction: str in: anOptionDictionary]
 ]
 
 { #category : #testing }
@@ -77,6 +94,18 @@ ChartDataAbstract >> multiValueTooltip: anObject [
 { #category : #accessing }
 ChartDataAbstract >> multiValueTooltipJs [
 	^ self adaptToolTip: self multiValueTooltip
+]
+
+{ #category : #accessing }
+ChartDataAbstract >> options [
+	
+	^ options ifNil: [options := ChartOptions new]
+]
+
+{ #category : #accessing }
+ChartDataAbstract >> options: anObject [
+	
+	options := anObject
 ]
 
 { #category : #accessing }

@@ -7,22 +7,32 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartPolar class >> dataFunction [
 	^ 'segments'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartPolar class >> eventsCode [
 	^ 'getSegmentsAtEvent(evt)'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartPolar class >> forChartJS [
 	^ 'PolarArea'
 ]
 
-{ #category : #ChartJs }
+{ #category : #testing }
 ChartPolar class >> isFor1DValues [
 	^ true
+]
+
+{ #category : #testing }
+ChartPolar class >> isMultiDataSet [
+	^ true
+]
+
+{ #category : #accessing }
+ChartPolar class >> typeName [
+	^ 'polarArea'
 ]

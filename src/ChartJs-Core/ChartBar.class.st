@@ -7,17 +7,17 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartBar class >> dataFunction [
 	^ 'bars'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartBar class >> eventsCode [
 	^ 'getBarsAtEvent(evt)'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartBar class >> forChartJS [
 	^ 'Bar'
 ]
@@ -25,4 +25,19 @@ ChartBar class >> forChartJS [
 { #category : #testing }
 ChartBar class >> isMultiDataSet [
 	^ true
+]
+
+{ #category : #accessing }
+ChartBar class >> optionKeys [
+	^ #(#datalabels)
+]
+
+{ #category : #accessing }
+ChartBar class >> styleSheetKeys [
+	^ #(#backgroundColor #borderColor #hoverBackgroundColor #hoverBorderColor #fill #borderWidth)
+]
+
+{ #category : #accessing }
+ChartBar class >> typeName [
+	^ 'bar'
 ]

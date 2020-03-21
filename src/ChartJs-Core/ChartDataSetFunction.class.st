@@ -10,7 +10,7 @@ Class {
 	#category : #'ChartJs-Core-Model'
 }
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 ChartDataSetFunction class >> function: aBlock [
 	^ self new
 		function: aBlock;
@@ -24,7 +24,7 @@ ChartDataSetFunction class >> function: aBlockClosure color: aColor [
 		yourself
 ]
 
-{ #category : #exchange }
+{ #category : #accessing }
 ChartDataSetFunction >> atIndex: anIndex forValue: aValue [
 	^ self function value: aValue
 ]
@@ -44,7 +44,9 @@ ChartDataSetFunction >> function: anObject [
 	function := anObject
 ]
 
-{ #category : #querying }
-ChartDataSetFunction >> valuesFor: aCollectionOfXObjects block: aBlock [
-	^ aCollectionOfXObjects collect: [ :anXValue | aBlock value: (self function value: anXValue) ]
+{ #category : #converting }
+ChartDataSetFunction >> neoJsonDataOn: aWriter [
+
+	self error: 'Not yet implemented'.
+	aWriter writeKey: #data value: #() "tbd: calculate values for function"
 ]

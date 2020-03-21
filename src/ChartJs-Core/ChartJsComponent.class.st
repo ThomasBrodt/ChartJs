@@ -11,27 +11,29 @@ Class {
 	#instVars : [
 		'data',
 		'options',
-		'value'
+		'value',
+		'maxHeight',
+		'maxWidth'
 	],
 	#category : #'ChartJs-Core-Component'
 }
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 ChartJsComponent class >> data: aChartData [
 	^ self new data: aChartData; yourself
 ]
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 ChartJsComponent class >> data: aChartData callback: aBlockClosure [ 
 	^ self new data: aChartData; callback: aBlockClosure; yourself
 ]
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 ChartJsComponent class >> data: aChartData options: aChartOptions [
 	^ self new data: aChartData; options: aChartOptions; yourself
 ]
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 ChartJsComponent class >> data: aChartData options: aChartOptions callback: aBlockClosure [ 
 	^ self new data: aChartData; options: aChartOptions; callback: aBlockClosure; yourself
 ]
@@ -46,32 +48,34 @@ ChartJsComponent >> callbackMechanism: canvasId actionUrl: anUrl cb: cb eventsCo
 	^ String
 		streamContents: [ :stream | 
 			stream
-				<< 'document.getElementById("graph';
+				<< 'document.getElementById("chartJsGraph';
+				<< canvasId;
+				<< '").onclick = function(evt){';
+				<< '	//add 1 because Pharo start at 1 and Js at 0';
+				<< '	var activePointIndex = 1 + myChart';
 				<< canvasId;
 				<<
-						'").onclick = function(evt){
-	//add 1 because Pharo start at 1 and Js at 0
-    var activePointIndex = 1 + myChart';
-				<< canvasId;
-				<<
-						(self data chartType isMultiDataSet
-								ifTrue: [ '.datasets[0].' ]
-								ifFalse: [ '.' ]);
+					(self data chartType isMultiDataSet
+						ifTrue: [ '.datasets[0].' ]
+						ifFalse: [ '.' ]);
 				<< self data chartType dataFunction;
 				<< '.indexOf(myChart';
 				<< canvasId;
 				<< '.';
 				<< eventsCode;
-				<<
-						'[0]);
-	if(activePointIndex!=0){
-	post( "';
+				<< '[0]);';
+				<< '	if(activePointIndex!=0){';
+				<< '			post( "';
 				<< anUrl asString;
 				<< '", { "';
 				<< cb;
-				<<
-						'" : activePointIndex } );
-}};' ]
+				<< '" : activePointIndex + 1} );}};' ]
+]
+
+{ #category : #rendering }
+ChartJsComponent >> chartCreationScriptInDiv: divId [
+	^ String
+		streamContents: [ :aStream | self printChartCreationScriptOn: aStream inDiv: divId ]
 ]
 
 { #category : #rendering }
@@ -100,21 +104,43 @@ ChartJsComponent >> hasCallBack [
 
 { #category : #rendering }
 ChartJsComponent >> manageCallBackIn: html canvas: canvas inDiv: divId [
+	| cb |
 	self hasCallBack
-		ifTrue: [ 
-			| cb |
-			cb := canvas
-				storeCallback:
-					(WAValuesCallback
-						on: [ :nodeOrAssociation | self value cull: nodeOrAssociation value cull: nodeOrAssociation key ]
-						values: self data).
-			html
-				script:
-					(self
-						callbackMechanism: divId
-						actionUrl: html actionUrl asString
-						cb: cb
-						eventsCode: self data chartType eventsCode) ]
+		ifFalse: [ ^ self ].
+
+	cb := canvas
+		storeCallback:
+			(WAValuesCallback
+				on:
+					[ :nodeOrAssociation | self value cull: nodeOrAssociation value cull: nodeOrAssociation key ]
+				values: self data).
+	html
+		script:
+			(self
+				callbackMechanism: divId
+				actionUrl: html actionUrl asString
+				cb: cb
+				eventsCode: self data chartType eventsCode)
+]
+
+{ #category : #accessing }
+ChartJsComponent >> maxHeight [
+	^ maxHeight
+]
+
+{ #category : #accessing }
+ChartJsComponent >> maxHeight: aHeight [
+	maxHeight := aHeight
+]
+
+{ #category : #accessing }
+ChartJsComponent >> maxWidth [
+	^ maxWidth
+]
+
+{ #category : #accessing }
+ChartJsComponent >> maxWidth: aWidth [
+	maxWidth := aWidth
 ]
 
 { #category : #accessing }
@@ -125,6 +151,36 @@ ChartJsComponent >> options [
 { #category : #accessing }
 ChartJsComponent >> options: anObject [
 	options := anObject
+]
+
+{ #category : #rendering }
+ChartJsComponent >> printChartCreationScriptOn: aStream inDiv: divId [
+	(aStream << 'var myChart')
+		, divId;
+		<< ' = new Chart("';
+		<< '#chartJsCanvas';
+		<< divId;
+		<< '", {';
+		<< 'type: ';
+		<< self data chartType typeName printString;
+		<< ', data: '.
+	self printChartDataOn: aStream.
+	aStream << ', options: '.
+	self printChartOptionsOn: aStream.
+	aStream << '});'
+]
+
+{ #category : #rendering }
+ChartJsComponent >> printChartDataOn: stream [
+	(NeoJSONWriter on: stream) nextPut: self data
+]
+
+{ #category : #rendering }
+ChartJsComponent >> printChartOptionsOn: aStream [
+	| optionsDictionary |
+	optionsDictionary := self options.
+	self data enrichOptions: optionsDictionary.
+	(NeoJSONWriter on: aStream) nextPut: optionsDictionary
 ]
 
 { #category : #rendering }
@@ -147,10 +203,10 @@ ChartJsComponent >> printDiagramCreationOn: s inDiv: divId [
 ]
 
 { #category : #rendering }
-ChartJsComponent >> printLegendOn: s forDiv: divId [
-	^ self data hasLegend
+ChartJsComponent >> printLegendOn: stream forDiv: divId [
+	self data hasLegend
 		ifTrue: [ 
-			s
+			stream
 				nextPutAll: 'document.getElementById("';
 				nextPutAll: #legend , divId;
 				nextPutAll: '").innerHTML=myChart';
@@ -173,37 +229,35 @@ ChartJsComponent >> renderContentOn: html [
 	| divId canvas |
 	divId := html nextId.
 	html div
+		id: #chartJsChart , divId;
 		class: #chartJsChart;
 		class: self data chartType name;
-		class: #hasLegend if: self data hasLegend;
-		id: divId;
+		class: #chartJsChartWithLegend if: self data hasLegend;	
 		with: [ self data hasData
-				ifTrue: [ html div
-						class: #chartJsGraph;
-						with: [ canvas := html canvas id: #graph , divId.
-							self manageCallBackIn: html canvas: canvas inDiv: divId ].
-					self createIfNecessaryLegend: html inDiv: divId.
-					html
-						script:
-							(String
-								streamContents: [ :s | 
-									self printDiagramCreationOn: s inDiv: divId.
-									s nextPutAll: '('.
-									self printDataOn: s.
-									s nextPutAll: ', '.
-									self printOptionsOn: s inHtml: html canvas: canvas.
-									s nextPutAll: ');'.
-									self printLegendOn: s forDiv: divId.
-									s
-										<< 'charts.push(myChart';
-										<< divId;
-										<< ')' ]) ]
+				ifTrue: [ 
+						| div |
+						div := html div
+							id: #chartJsGraph , divId;
+							class: #chartJsGraph;
+							style: 'position: relative'.
+						self maxHeight
+								ifNotNil: [:h |
+									h isString
+										ifTrue: [div style: 'max-height: ' , h]
+										ifFalse: [div style: 'max-height: ' , h printString]].
+									self maxWidth
+								ifNotNil: [:w |
+									w isString
+										ifTrue: [div style: 'max-width: ' , w]
+										ifFalse: [div style: 'max-width: ' , w printString]].
+						div with: [ 
+							canvas := html canvas id: #chartJsCanvas , divId.
+							self manageCallBackIn: html canvas: canvas inDiv: divId].
+					html script: (self chartCreationScriptInDiv: divId)]
 				ifFalse: [ html div
 						class: 'mdl-alert mdl-alert__danger';
 						style: 'color: red; text-align: center; margin: auto;';
-						with: [ html text: 'No data to display' ] ].
-			self data hasTitle
-				ifTrue: [ self renderTitleId: divId on: html ] ]
+						with: [ html text: 'No data to display' ] ] ]
 ]
 
 { #category : #rendering }

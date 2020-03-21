@@ -7,22 +7,32 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartRadar class >> dataFunction [
 	^ 'points'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartRadar class >> eventsCode [
 	^ 'getPointsAtEvent(evt)'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartRadar class >> forChartJS [
 	^ 'Radar'
 ]
 
 { #category : #testing }
+ChartRadar class >> hasStyleSheetForValuesIn: aDataSet [
+	^ false
+]
+
+{ #category : #testing }
 ChartRadar class >> isMultiDataSet [
 	^ true
+]
+
+{ #category : #accessing }
+ChartRadar class >> typeName [
+	^ 'radar'
 ]

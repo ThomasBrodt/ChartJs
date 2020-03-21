@@ -7,22 +7,32 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartPie class >> dataFunction [
 	^ 'segments'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartPie class >> eventsCode [
 	^ 'getSegmentsAtEvent(evt)'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartPie class >> forChartJS [
 	^ 'Pie'
 ]
 
-{ #category : #ChartJs }
+{ #category : #testing }
 ChartPie class >> isFor1DValues [
 	^ true
+]
+
+{ #category : #testing }
+ChartPie class >> isMultiDataSet [
+	^ true
+]
+
+{ #category : #accessing }
+ChartPie class >> typeName [
+	^ 'pie'
 ]

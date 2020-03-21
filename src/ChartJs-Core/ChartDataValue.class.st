@@ -12,7 +12,14 @@ Class {
 	#category : #'ChartJs-Core-Model'
 }
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
+ChartDataValue class >> value: aValue [
+	^ self new
+		value: aValue;
+		yourself
+]
+
+{ #category : #'instance creation' }
 ChartDataValue class >> value: aValue name: aName [
 	^ self new
 		value: aValue;
@@ -20,7 +27,7 @@ ChartDataValue class >> value: aValue name: aName [
 		yourself
 ]
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 ChartDataValue class >> value: aValue name: aName color: aColor [
 	^ self new
 		value: aValue;
@@ -31,7 +38,7 @@ ChartDataValue class >> value: aValue name: aName color: aColor [
 
 { #category : #accessing }
 ChartDataValue >> color [
-	^ self styleSheet fillColor
+	^ self styleSheet backgroundColor
 ]
 
 { #category : #ChartJs }
@@ -68,6 +75,16 @@ ChartDataValue >> name [
 { #category : #accessing }
 ChartDataValue >> name: anObject [
 	name := anObject
+]
+
+{ #category : #converting }
+ChartDataValue >> neoJsonOn: writer displayBlock: aDisplayBlock [
+	writer
+		writeMapStreamingDo: [ :jsonMapWriter | 
+			jsonMapWriter writeKey: #value value: (aDisplayBlock value: self value).
+			jsonMapWriter writeKey: #color value: self color forChartJs.
+			jsonMapWriter writeKey: #highlight value: self highlightColor forChartJs.
+			jsonMapWriter writeKey: #label value: self name ]
 ]
 
 { #category : #accessing }

@@ -14,7 +14,7 @@ Class {
 	#category : #'ChartJs-Core-Model'
 }
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 Chart2dData class >> xObjects: aCollectionOfObjects function: aBlock [
 	^ self new
 		xObjects: aCollectionOfObjects;
@@ -30,7 +30,7 @@ Chart2dData class >> xObjects: aCollectionOfObjects function: aBlockClosure colo
 		yourself
 ]
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 Chart2dData class >> xObjects: aCollectionOfObjects multiYObjects: aCollectionOfSequenceableCollectionOfObjectsToMap [
 	^ self new
 		xObjects: aCollectionOfObjects;
@@ -40,7 +40,7 @@ Chart2dData class >> xObjects: aCollectionOfObjects multiYObjects: aCollectionOf
 		yourself
 ]
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 Chart2dData class >> xObjects: aCollectionOfObjects yObjects: aSequenceableCollectionOfObjectsToMap [
 	^ self new
 		xObjects: aCollectionOfObjects;
@@ -48,9 +48,16 @@ Chart2dData class >> xObjects: aCollectionOfObjects yObjects: aSequenceableColle
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+Chart2dData >> addDataSet: aDataSet [
+	dataSets add: aDataSet.
+	aDataSet chartType ifNil: [aDataSet chartType: self chartType]
+]
+
+{ #category : #accessing }
 Chart2dData >> addFunction: aFunctionBlock color: aColor [
-	self dataSets addLast: (ChartDataSetFunction function: aFunctionBlock color: aColor)
+	self dataSets
+		addLast: (ChartDataSetFunction function: aFunctionBlock color: aColor)
 ]
 
 { #category : #callback }
@@ -66,8 +73,13 @@ Chart2dData >> callBackValues [
 
 { #category : #chartType }
 Chart2dData >> chartType: aChartType [
-	self assert: aChartType isMultiDataSet description: 'Chart accepted: Bar, Line, BoxPlot and Radar'.
-	super chartType: aChartType
+	self
+		assert: aChartType isMultiDataSet
+		description: 'Chart accepted: Bar, Line, BoxPlot and Radar'.
+	super chartType: aChartType.
+	self dataSets
+		ifNotNil:
+			[ :ds | ds do: [ :e | e chartType ifNotNil: [ e chartType: aChartType ] ] ]
 ]
 
 { #category : #accessing }
@@ -77,7 +89,18 @@ Chart2dData >> dataSets [
 
 { #category : #accessing }
 Chart2dData >> dataSets: anObject [
-	dataSets := anObject asOrderedCollection
+	dataSets := anObject asOrderedCollection.
+	dataSets do: [:e | e chartType ifNil: [e chartType: self chartType]]
+]
+
+{ #category : #colors }
+Chart2dData >> dataSetsBorderedColors: aCollectionOfColors [
+	self
+		assert: aCollectionOfColors size = self dataSets size
+		description: 'The provided collection of colors must have one color per dataset'.
+	self dataSets
+		doWithIndex:
+			[ :aDataSet :anIndex | aDataSet borderedColor: (aCollectionOfColors at: anIndex) ]
 ]
 
 { #category : #colors }
@@ -95,7 +118,10 @@ Chart2dData >> displayKeysAsPercent [
 
 { #category : #testing }
 Chart2dData >> hasData [
-	^ self xObjects isNotEmpty
+	"Not all chartTypes need a xObject collection (e.g. treemap), so either xObject or dataSets can be nil"
+
+	^ self xObjects isNilOrEmpty not
+		or: [ self dataSets isNilOrEmpty not ]
 ]
 
 { #category : #testing }
@@ -106,7 +132,8 @@ Chart2dData >> hasLegend [
 { #category : #initialization }
 Chart2dData >> initialize [
 	super initialize.
-	self chartType: ChartLine
+	self chartType: ChartLine.
+	dataSets := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -124,17 +151,23 @@ Chart2dData >> labelFor: aString [
 	^ (self keyDisplayBlock value: aString)
 ]
 
-{ #category : #exchange }
+{ #category : #converting }
 Chart2dData >> neoJsonOn: writer [
 	writer
 		writeMapStreamingDo: [ :jsonMapWriter | 
-			jsonMapWriter writeKey: #labels value: (xObjects collect: [ :aXObject | self labelFor: aXObject ]).
+			xObjects
+				ifNotNil: [ jsonMapWriter
+						writeKey: #labels
+						value: (xObjects collect: [ :aXObject | self labelFor: aXObject ]) ].
 			self chartType isMultiDataSet
-				ifTrue: [ 
-					jsonMapWriter
-						writeKey: #datasets
-						value: (self dataSets collect: [ :aDataSet | aDataSet neoJsonObjectFor: self xObjects block: self valueDisplayBlock ]) ]
+				ifTrue: [ jsonMapWriter writeKey: #datasets value: self dataSets
+					"value: (self dataSets collect: [ :aDataSet | aDataSet neoJsonObjectFor: self xObjects block: self valueDisplayBlock ])" ]
 				ifFalse: [ self error: 'Not supported graph type' ] ]
+]
+
+{ #category : #accessing }
+Chart2dData >> styleSheets: aCollection [
+	self dataSets do: [:e | e styleSheets: aCollection]
 ]
 
 { #category : #accessing }

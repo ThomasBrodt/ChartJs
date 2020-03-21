@@ -7,17 +7,17 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartBoxPlot class >> dataFunction [
 	^ 'bars'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartBoxPlot class >> eventsCode [
 	^ 'getBarsAtEvent(evt)'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartBoxPlot class >> forChartJS [
 	^ 'BoxPlot'
 ]
@@ -25,4 +25,10 @@ ChartBoxPlot class >> forChartJS [
 { #category : #testing }
 ChartBoxPlot class >> isMultiDataSet [
 	^ true
+]
+
+{ #category : #accessing }
+ChartBoxPlot class >> typeName [
+	
+	^ 'boxplot'
 ]

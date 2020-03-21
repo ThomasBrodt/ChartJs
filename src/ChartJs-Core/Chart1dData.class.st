@@ -10,26 +10,26 @@ Class {
 	#category : #'ChartJs-Core-Model'
 }
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 Chart1dData class >> dictionary: aDictionary [
 	^ self values: aDictionary associations 
 ]
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 Chart1dData class >> dictionary: aDictionary valueDisplayBlock: aBlockOrSymbol [
 	^ (self dictionary: aDictionary)
 		valueDisplayBlock: aBlockOrSymbol;
 		yourself
 ]
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 Chart1dData class >> values: aCollectionOfAssociations [
 	^ self new
 		datas: (aCollectionOfAssociations collect: [ :asso | ChartDataValue value: asso value name: asso key ]);
 		yourself
 ]
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 Chart1dData class >> values: aCollectionOfAssociations valueDisplayBlock: aBlockOrSymbol [
 	^ (self values: aCollectionOfAssociations)
 		valueDisplayBlock: aBlockOrSymbol;
@@ -73,10 +73,10 @@ Chart1dData >> initialize [
 	self chartType: ChartPie
 ]
 
-{ #category : #ChartJs }
+{ #category : #converting }
 Chart1dData >> neoJsonOn: writer [
 	writer writeListStreamingDo: [ :jsonListWriter |
-		self datas do: [ :each | each forChartJS: writer displayBlock: self valueDisplayBlock] separatedBy: [ writer listElementSeparator ] ]
+		self datas do: [ :each | each neoJsonOn: writer displayBlock: self valueDisplayBlock] separatedBy: [ writer listElementSeparator ] ]
 ]
 
 { #category : #accessing }

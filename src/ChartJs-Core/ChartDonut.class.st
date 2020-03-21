@@ -7,17 +7,17 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartDonut class >> dataFunction [
 	^ 'segments'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartDonut class >> eventsCode [
 	^ 'getSegmentsAtEvent(evt)'
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartDonut class >> forChartJS [
 	^ 'Doughnut'
 ]
@@ -25,4 +25,9 @@ ChartDonut class >> forChartJS [
 { #category : #ChartJs }
 ChartDonut class >> isFor1DValues [
 	^ true
+]
+
+{ #category : #accessing }
+ChartDonut class >> typeName [
+	^ 'doughnut'
 ]

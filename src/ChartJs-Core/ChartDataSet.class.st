@@ -6,7 +6,12 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'styleSheet'
+		'styleSheet',
+		'chartType',
+		'hasStyleSheetForValues',
+		'yAxisID',
+		'stack',
+		'valueDisplayBlock'
 	],
 	#category : #'ChartJs-Core-Model'
 }
@@ -17,19 +22,45 @@ ChartDataSet >> atIndex: anIndex forValue: aValue [
 ]
 
 { #category : #color }
+ChartDataSet >> borderedColor: aColor [
+	self styleSheet globalSetBorderedColor: aColor
+]
+
+{ #category : #accessing }
+ChartDataSet >> chartType [
+	^ chartType
+]
+
+{ #category : #accessing }
+ChartDataSet >> chartType: aChartType [
+	chartType := aChartType
+]
+
+{ #category : #color }
 ChartDataSet >> color: aColor [
 	self styleSheet globalSetColor: aColor
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 ChartDataSet >> hasName [
-	^ self name isNotNil
+	^ self name notNil
+]
+
+{ #category : #accessing }
+ChartDataSet >> hasStyleSheetForValues [
+	^ hasStyleSheetForValues ifNil: [hasStyleSheetForValues := false]
+]
+
+{ #category : #accessing }
+ChartDataSet >> hasStyleSheetForValues: aBoolean [
+	hasStyleSheetForValues := aBoolean
 ]
 
 { #category : #initialization }
 ChartDataSet >> initialize [
 	super initialize.
-	self styleSheet: ChartStyleSheet charDataSetDefault
+	self styleSheet: ChartStyleSheet charDataSetDefault.
+	hasStyleSheetForValues := false
 ]
 
 { #category : #accessing }
@@ -43,13 +74,60 @@ ChartDataSet >> name: anObject [
 ]
 
 { #category : #exchange }
-ChartDataSet >> neoJsonObjectFor: aCollectionOfXObjects block: aBlock [
-	| dico |
-	dico := Dictionary new.
-	dico at: #label put: self name.
-	dico at: #data put: (self valuesFor: aCollectionOfXObjects block: aBlock).
-	dico addAll: (self styleSheet charDataSetNeoJsonObjectForKeys: aCollectionOfXObjects values: (dico at: #data) label: self name).
-	^ dico
+ChartDataSet >> neoJsonChartOptionsOn: writer [
+	self chartType optionKeys
+		do: [ :e | 
+			self styleSheet
+				get: e
+				ifPresent: [ :val | writer writeKey: e value: val ] ]
+]
+
+{ #category : #exchange }
+ChartDataSet >> neoJsonDataOn: aJsonMapWriter [
+	
+	self subclassResponsibility
+]
+
+{ #category : #converting }
+ChartDataSet >> neoJsonOn: writer [
+	
+	writer
+		writeMapStreamingDo: [ :jsonMapWriter | 
+			writer writeKey: #type value: self chartType typeName.
+			writer writeKey: #label value: self name.
+			self stack ifNotNil: [:str | writer writeKey: #stack value: str].
+			self yAxisID ifNotNil: [:id | writer writeKey: #yAxisID value: id].
+			self neoJsonDataOn: jsonMapWriter.
+			self neoJsonStyleSheetOn: jsonMapWriter.
+			self neoJsonOptionsOn: jsonMapWriter]
+		
+	
+]
+
+{ #category : #exchange }
+ChartDataSet >> neoJsonOptionsOn: aJsonMapWriter [
+]
+
+{ #category : #exchange }
+ChartDataSet >> neoJsonStyleSheetOn: aJsonMapWriter [
+	styleSheet ifNil: [ ^ self ].
+	self chartType styleSheetKeys
+		do: [ :e | 
+			self styleSheet
+				get: e
+				ifPresent: [ :val | aJsonMapWriter writeKey: e value: val forChartJs ] ]
+]
+
+{ #category : #accessing }
+ChartDataSet >> stack [
+	
+	^ stack
+]
+
+{ #category : #accessing }
+ChartDataSet >> stack: aString [
+	
+	stack := aString
 ]
 
 { #category : #accessing }
@@ -62,7 +140,24 @@ ChartDataSet >> styleSheet: anObject [
 	styleSheet := anObject
 ]
 
-{ #category : #querying }
-ChartDataSet >> valuesFor: aCollectionOfXObjects block: aBlock [
-	^ self subclassResponsibility 
+{ #category : #accessing }
+ChartDataSet >> valueDisplayBlock [
+	^ valueDisplayBlock ifNil: [:obj | obj yourself ]
+]
+
+{ #category : #accessing }
+ChartDataSet >> valueDisplayBlock: aBlockClosure [
+	valueDisplayBlock := aBlockClosure 
+]
+
+{ #category : #accessing }
+ChartDataSet >> yAxisID [
+
+	^yAxisID
+]
+
+{ #category : #accessing }
+ChartDataSet >> yAxisID: aString [
+
+	yAxisID := aString
 ]
