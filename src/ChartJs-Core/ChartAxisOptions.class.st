@@ -82,11 +82,6 @@ ChartAxisOptions >> initialize [
 	self visible: true.
 ]
 
-{ #category : #scale }
-ChartAxisOptions >> logarithmicScale [
-	self scale: #logarithmic
-]
-
 { #category : #accessing }
 ChartAxisOptions >> maxBarThickness: aNumber [
 	self at: #maxBarThickness put: aNumber

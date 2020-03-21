@@ -217,7 +217,7 @@ ChartOptions >> xAxes [
 	^ self scales at: #xAxes ifAbsent: []
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing scales' }
 ChartOptions >> xAxes: aCollectionOfChartAxisOptions [
 	self scales at: #xAxes put: aCollectionOfChartAxisOptions
 ]
@@ -242,9 +242,4 @@ ChartOptions >> yAxes: aCollectionOfChartAxisOptions [
 ChartOptions >> yAxis [
 	self yAxes ifNil: [self scalesAt: #yAxes put: (OrderedCollection with: ChartAxisOptions new)].
 	^ self yAxes first
-]
-
-{ #category : #axis }
-ChartOptions >> yLogarithmicAxis [
-	self yAxis logarithmicScale
 ]
