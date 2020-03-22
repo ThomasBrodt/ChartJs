@@ -1,3 +1,6 @@
+"
+ChartBoxPlotDemo shows an example of the box plot chart type of chart.js
+"
 Class {
 	#name : #ChartBoxPlotDemo,
 	#superclass : #ChartAbstractDemo,

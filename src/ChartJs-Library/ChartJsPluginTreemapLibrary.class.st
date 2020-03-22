@@ -1,10 +1,12 @@
 "
+I am the import of the treemap plugin source files for seaside.
+
 ChartJsPluginTreemapLibrary recursivelyAddAllFilesIn: 'C:\TEMP\chartjs-plugin-treemap'
 "
 Class {
 	#name : #ChartJsPluginTreemapLibrary,
 	#superclass : #ChartJsPluginLibrary,
-	#category : #'ChartJs-Library'
+	#category : #'ChartJs-Library-Plugins'
 }
 
 { #category : #uploaded }

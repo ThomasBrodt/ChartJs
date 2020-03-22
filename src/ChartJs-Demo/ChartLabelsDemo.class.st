@@ -1,3 +1,6 @@
+"
+ChartLabelsDemo shows the usage of the labels plugin to add labels to chart.js charts
+"
 Class {
 	#name : #ChartLabelsDemo,
 	#superclass : #ChartAbstractDemo,

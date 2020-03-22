@@ -14,11 +14,19 @@ Class {
 
 { #category : #'class initialization' }
 ChartsDemos class >> initialize [
-	WAAdmin applicationDefaults removeParent: WADevelopmentConfiguration instance.
+	WAAdmin applicationDefaults
+		removeParent: WADevelopmentConfiguration instance.
 	(WAAdmin register: self asApplicationAt: 'ChartJsDemo')
+		addLibrary: JQDeploymentLibrary;
 		addLibrary: PrismLibrary;
 		addLibrary: ChartJsLibrary;
-		addLibrary: JQDeploymentLibrary
+		addLibrary: ChartJsPluginBoxPlotLibrary;
+		addLibrary: ChartJsPluginChartFinancialLibrary;
+		addLibrary: ChartJsPluginDatalabelsLibrary;
+		addLibrary: ChartJsPluginDoughnutLabelLibrary;
+		addLibrary: ChartJsPluginLabelsLibrary;
+		addLibrary: ChartJsPluginStacked100Library;
+		addLibrary: ChartJsPluginTreemapLibrary
 ]
 
 { #category : #versions }

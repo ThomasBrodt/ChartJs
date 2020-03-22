@@ -1,7 +1,12 @@
+"
+I am the seaside file libary of the box plot plugin source files.
+
+ChartJsPluginBoxplotLibrary recursivelyAddAllFilesIn: 'C:\TEMP\chartjs-plugin-boxplot'
+"
 Class {
 	#name : #ChartJsPluginBoxPlotLibrary,
 	#superclass : #ChartJsPluginLibrary,
-	#category : #'ChartJs-Library'
+	#category : #'ChartJs-Library-Plugins'
 }
 
 { #category : #'uploaded metadata' }

@@ -1,7 +1,12 @@
+"
+I am the seaside file libary of the datalabels plugin source files.
+
+ChartJsPluginDatalabelsLibrary recursivelyAddAllFilesIn: 'C:\TEMP\chartjs-plugin-datalabels'
+"
 Class {
 	#name : #ChartJsPluginDatalabelsLibrary,
 	#superclass : #ChartJsPluginLibrary,
-	#category : #'ChartJs-Library'
+	#category : #'ChartJs-Library-Plugins'
 }
 
 { #category : #'uploaded metadata' }

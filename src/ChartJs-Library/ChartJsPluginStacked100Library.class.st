@@ -1,10 +1,12 @@
 "
+I am the import of the stacked100 plugin source files for seaside.
+
 ChartJsPluginStacked100Library recursivelyAddAllFilesIn: 'C:\TEMP\chartjs-plugin-stacked100'
 "
 Class {
 	#name : #ChartJsPluginStacked100Library,
 	#superclass : #ChartJsPluginLibrary,
-	#category : #'ChartJs-Library'
+	#category : #'ChartJs-Library-Plugins'
 }
 
 { #category : #uploaded }

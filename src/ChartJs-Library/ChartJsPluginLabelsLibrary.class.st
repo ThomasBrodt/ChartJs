@@ -1,10 +1,12 @@
 "
+I am the import of the labels plugin source files for seaside.
+
 ChartJsPluginBoxPlotLibrary recursivelyAddAllFilesIn: 'C:\TEMP\chartjs-plugin-labels'
 "
 Class {
 	#name : #ChartJsPluginLabelsLibrary,
 	#superclass : #ChartJsPluginLibrary,
-	#category : #'ChartJs-Library'
+	#category : #'ChartJs-Library-Plugins'
 }
 
 { #category : #'uploaded metadata' }

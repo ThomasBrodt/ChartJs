@@ -1,7 +1,12 @@
+"
+I am the import of the doughnut plugin source files for seaside.
+
+ChartJsPluginBoxPlotLibrary recursivelyAddAllFilesIn: 'C:\TEMP\chartjs-plugin-doughnutlabel'
+"
 Class {
 	#name : #ChartJsPluginDoughnutLabelLibrary,
 	#superclass : #ChartJsPluginLibrary,
-	#category : #'ChartJs-Library'
+	#category : #'ChartJs-Library-Plugins'
 }
 
 { #category : #'uploaded metadata' }

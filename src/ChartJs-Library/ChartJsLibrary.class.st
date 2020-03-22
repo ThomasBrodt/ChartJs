@@ -18,7 +18,7 @@ getPointAtEvent : function(e){
 Class {
 	#name : #ChartJsLibrary,
 	#superclass : #WAFileMetadataLibrary,
-	#category : #'ChartJs-Library'
+	#category : #'ChartJs-Library-Library'
 }
 
 { #category : #download }

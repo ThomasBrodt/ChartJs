@@ -4,7 +4,7 @@ ChartJsPluginBoxPlotLibrary recursivelyAddAllFilesIn: 'C:\TEMP\chartjs-chart-box
 Class {
 	#name : #ChartJsPluginChartFinancialLibrary,
 	#superclass : #ChartJsPluginLibrary,
-	#category : #'ChartJs-Library'
+	#category : #'ChartJs-Library-Plugins'
 }
 
 { #category : #private }
