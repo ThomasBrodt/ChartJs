@@ -48,12 +48,12 @@ ChartJsComponent >> callbackMechanism: canvasId actionUrl: anUrl cb: cb eventsCo
 	^ String
 		streamContents: [ :stream | 
 			stream
-				<< 'document.getElementById("chartJsGraph';
-				<< canvasId;
+				<< ('document.getElementById("chartJsGraph' , canvasId);
 				<< '").onclick = function(evt){';
+				cr;
 				<< '	//add 1 because Pharo start at 1 and Js at 0';
-				<< '	var activePointIndex = 1 + myChart';
-				<< canvasId;
+				cr;
+				<< ('	var activePointIndex = myChart' , canvasId);
 				<<
 					(self data chartType isMultiDataSet
 						ifTrue: [ '.datasets[0].' ]
@@ -64,27 +64,22 @@ ChartJsComponent >> callbackMechanism: canvasId actionUrl: anUrl cb: cb eventsCo
 				<< '.';
 				<< eventsCode;
 				<< '[0]);';
-				<< '	if(activePointIndex!=0){';
-				<< '			post( "';
+				cr;
+				<< '	if (activePointIndex != 0) {';
+				cr;
+				<< '				post( "';
 				<< anUrl asString;
 				<< '", { "';
 				<< cb;
-				<< '" : activePointIndex + 1} );}};' ]
+				<< '" : activePointIndex + 1 } );';
+				cr;
+				<< '	}};' ]
 ]
 
 { #category : #rendering }
 ChartJsComponent >> chartCreationScriptInDiv: divId [
 	^ String
 		streamContents: [ :aStream | self printChartCreationScriptOn: aStream inDiv: divId ]
-]
-
-{ #category : #rendering }
-ChartJsComponent >> createIfNecessaryLegend: html inDiv: divId [
-	self data hasLegend
-		ifTrue: [ 
-			html div
-				id: #legend , divId;
-				class: #chartJsLegend ]
 ]
 
 { #category : #accessing }
@@ -157,8 +152,7 @@ ChartJsComponent >> options: anObject [
 ChartJsComponent >> printChartCreationScriptOn: aStream inDiv: divId [
 	aStream
 		<< ('var myChart' , divId);
-		<< ' = new Chart("';
-		<< '#chartJsCanvas';
+		<< ' = new Chart("chartJsCanvas';
 		<< divId;
 		<< '", {';
 		<< 'type: ';
@@ -181,47 +175,6 @@ ChartJsComponent >> printChartOptionsOn: aStream [
 	optionsDictionary := self options.
 	self data enrichOptions: optionsDictionary.
 	(NeoJSONWriter on: aStream) nextPut: optionsDictionary
-]
-
-{ #category : #rendering }
-ChartJsComponent >> printDataOn: s [
-	(NeoJSONWriter on: s)
-		nextPut: self data;
-		close
-]
-
-{ #category : #rendering }
-ChartJsComponent >> printDiagramCreationOn: s inDiv: divId [
-	s
-		<< 'var myChart';
-		<< divId;
-		<< ' = new Chart(document.getElementById("';
-		<< #graph;
-		<< divId;
-		<< '").getContext("2d")).';
-		<< self data chartType forChartJS
-]
-
-{ #category : #rendering }
-ChartJsComponent >> printLegendOn: stream forDiv: divId [
-	self data hasLegend
-		ifTrue: [ 
-			stream
-				nextPutAll: 'document.getElementById("';
-				nextPutAll: #legend , divId;
-				nextPutAll: '").innerHTML=myChart';
-				nextPutAll: divId;
-				nextPutAll: '.generateLegend();' ]
-]
-
-{ #category : #rendering }
-ChartJsComponent >> printOptionsOn: s inHtml: html canvas: canvas [
-	|  optionsDictionary |
-	optionsDictionary := self options asDictionary.
-	self data enrichOptions: optionsDictionary.
-	(NeoJSONWriter on: s)
-		nextPut: optionsDictionary;
-		close
 ]
 
 { #category : #rendering }
