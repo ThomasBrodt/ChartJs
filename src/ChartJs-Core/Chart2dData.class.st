@@ -120,8 +120,11 @@ Chart2dData >> displayKeysAsPercent [
 Chart2dData >> hasData [
 	"Not all chartTypes need a xObject collection (e.g. treemap), so either xObject or dataSets can be nil"
 
-	^ self xObjects isNilOrEmpty not
-		or: [ self dataSets isNilOrEmpty not ]
+	self xObjects
+		ifNotNil: [ :x | 
+			x isEmpty
+				ifFalse: [ ^ true ] ].
+	^ self dataSets notNil and: [ self dataSets notEmpty ]
 ]
 
 { #category : #testing }

@@ -6,3 +6,21 @@ Class {
 	#superclass : #ChartAbstractDemo,
 	#category : #'ChartJs-Demo'
 }
+
+{ #category : #accessing }
+ChartDatalabelsDemo class >> description [
+	^ 'Customize labels shown on data segments'
+]
+
+{ #category : #accessing }
+ChartDatalabelsDemo class >> title [
+	^ 'Datalabels'
+]
+
+{ #category : #rendering }
+ChartDatalabelsDemo >> renderChartJsComponentOn: html [
+
+	html heading
+		level: 3;
+		with: ['to be done']
+]

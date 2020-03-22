@@ -47,6 +47,6 @@ ChartDataSetFunction >> function: anObject [
 { #category : #converting }
 ChartDataSetFunction >> neoJsonDataOn: aWriter [
 
-	self error: 'Not yet implemented'.
+	self flag: 'Not yet implemented'.
 	aWriter writeKey: #data value: #() "tbd: calculate values for function"
 ]

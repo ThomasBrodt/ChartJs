@@ -79,6 +79,7 @@ ChartAxisOptions >> id: aString [
 
 { #category : #initialization }
 ChartAxisOptions >> initialize [
+	super initialize.
 	self visible: true.
 ]
 

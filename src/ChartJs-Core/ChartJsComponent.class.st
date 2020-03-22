@@ -155,8 +155,8 @@ ChartJsComponent >> options: anObject [
 
 { #category : #rendering }
 ChartJsComponent >> printChartCreationScriptOn: aStream inDiv: divId [
-	(aStream << 'var myChart')
-		, divId;
+	aStream
+		<< ('var myChart' , divId);
 		<< ' = new Chart("';
 		<< '#chartJsCanvas';
 		<< divId;

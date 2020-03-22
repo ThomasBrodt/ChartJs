@@ -93,10 +93,10 @@ ChartDataSet >> neoJsonOn: writer [
 	
 	writer
 		writeMapStreamingDo: [ :jsonMapWriter | 
-			writer writeKey: #type value: self chartType typeName.
-			writer writeKey: #label value: self name.
-			self stack ifNotNil: [:str | writer writeKey: #stack value: str].
-			self yAxisID ifNotNil: [:id | writer writeKey: #yAxisID value: id].
+			jsonMapWriter writeKey: #type value: self chartType typeName.
+			jsonMapWriter writeKey: #label value: self name.
+			self stack ifNotNil: [:str | jsonMapWriter writeKey: #stack value: str].
+			self yAxisID ifNotNil: [:id | jsonMapWriter writeKey: #yAxisID value: id].
 			self neoJsonDataOn: jsonMapWriter.
 			self neoJsonStyleSheetOn: jsonMapWriter.
 			self neoJsonOptionsOn: jsonMapWriter]

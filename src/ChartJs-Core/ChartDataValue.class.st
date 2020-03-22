@@ -83,7 +83,7 @@ ChartDataValue >> neoJsonOn: writer displayBlock: aDisplayBlock [
 		writeMapStreamingDo: [ :jsonMapWriter | 
 			jsonMapWriter writeKey: #value value: (aDisplayBlock value: self value).
 			jsonMapWriter writeKey: #color value: self color forChartJs.
-			jsonMapWriter writeKey: #highlight value: self highlightColor forChartJs.
+			jsonMapWriter writeKey: #highlight value: (self highlightColor ifNil: [self color]) forChartJs.
 			jsonMapWriter writeKey: #label value: self name ]
 ]
 

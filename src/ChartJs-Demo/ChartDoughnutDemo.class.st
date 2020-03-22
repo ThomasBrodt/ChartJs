@@ -8,6 +8,19 @@ Class {
 }
 
 { #category : #accessing }
+ChartDoughnutDemo class >> description [
+	^ 'Show data in the form of a doughnut.'
+]
+
+{ #category : #accessing }
 ChartDoughnutDemo class >> title [
 	^ 'Doughnut'
+]
+
+{ #category : #rendering }
+ChartDoughnutDemo >> renderChartJsComponentOn: html [
+
+	html heading
+		level: 3;
+		with: ['to be done']
 ]

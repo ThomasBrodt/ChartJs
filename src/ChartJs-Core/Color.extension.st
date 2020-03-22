@@ -1,6 +1,30 @@
 Extension { #name : #Color }
 
 { #category : #'*ChartJs-Core' }
+Color >> blendWith: aColor [
+	"Answer a new Color which is a 50% blend of the receiver and the
+	supplied Color."
+	"Simply interpolates in RGB space."
+
+	^self blendWith: aColor weight: 0.5
+]
+
+{ #category : #'*ChartJs-Core' }
+Color >> blendWith: aColorValue weight: wt [
+	"Answer a new ColorValue which is a weighted blend of the receiver and the
+	supplied ColorValue."
+
+	"Simply interpolates in RGB space."
+
+	| rv gv bv invWt |
+	invWt := 1 - wt.
+	rv := (self red * invWt + (aColorValue red * wt)) rounded.
+	gv := (self green * invWt + (aColorValue green * wt)) rounded.
+	bv := (self blue * invWt + (aColorValue blue * wt)) rounded.
+	^ self class r: rv g: gv b: bv
+]
+
+{ #category : #'*ChartJs-Core' }
 Color >> forChartJs [
 	^ String
 		streamContents: [ :s | 
