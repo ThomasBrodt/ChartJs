@@ -15,6 +15,14 @@ Class {
 }
 
 { #category : #'instance creation' }
+Chart2dData class >> pointDataSets: aCollection [
+	^ (self new)
+		xObjects: (aCollection first value collect: [:e | e x]);
+		dataSets: (aCollection collect: [:anAssociation | ChartDataSetSequence name: anAssociation key sequence: anAssociation value]);
+		yourself
+]
+
+{ #category : #'instance creation' }
 Chart2dData class >> xObjects: aCollectionOfObjects function: aBlock [
 	^ self new
 		xObjects: aCollectionOfObjects;

@@ -7,6 +7,16 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
+{ #category : #accessing }
+ChartBubble class >> dataFunction [
+	^ 'points'
+]
+
+{ #category : #accessing }
+ChartBubble class >> eventsCode [
+	^ 'getPointsAtEvent(evt)'
+]
+
 { #category : #testing }
 ChartBubble class >> isMultiDataSet [
 	^ true

@@ -77,21 +77,9 @@ ChartAxisOptions >> id: aString [
 	self at: #id put: aString
 ]
 
-{ #category : #initialization }
-ChartAxisOptions >> initialize [
-	super initialize.
-	self visible: true.
-]
-
 { #category : #accessing }
 ChartAxisOptions >> maxBarThickness: aNumber [
 	self at: #maxBarThickness put: aNumber
-]
-
-{ #category : #converting }
-ChartAxisOptions >> neoJsonOn: neoJSONWriter [
-	neoJSONWriter writeListStreamingDo: [ :jsonListWriter |
-		jsonListWriter writeElement: { #display -> self visible . #type -> self scale } asDictionary ]
 ]
 
 { #category : #accessing }

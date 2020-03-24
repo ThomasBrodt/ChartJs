@@ -7,6 +7,16 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
+{ #category : #accessing }
+ChartScatter class >> dataFunction [
+	^ 'points'
+]
+
+{ #category : #accessing }
+ChartScatter class >> eventsCode [
+	^ 'getPointsAtEvent(evt)'
+]
+
 { #category : #testing }
 ChartScatter class >> isMultiDataSet [
 	^ true

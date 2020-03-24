@@ -17,11 +17,6 @@ ChartBar class >> eventsCode [
 	^ 'getBarsAtEvent(evt)'
 ]
 
-{ #category : #accessing }
-ChartBar class >> forChartJS [
-	^ 'Bar'
-]
-
 { #category : #testing }
 ChartBar class >> isMultiDataSet [
 	^ true

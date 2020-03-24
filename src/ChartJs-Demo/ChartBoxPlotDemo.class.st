@@ -36,7 +36,7 @@ ChartBoxPlotDemo >> renderChartJsComponentOn: html [
 	chartData2 := Chart2dData
 		xObjects:
 			{Collection.
-			TestCase}
+			Magnitude}
 		function: [ :class | ChartBoxPlotData for: class allSubclasses using: [ :c | c methods size ] ].
 	chartData2 chartType: ChartBoxPlot; keyDisplayBlock: #printString.
 	html render: (ChartJsComponent data: chartData2)

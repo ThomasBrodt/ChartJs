@@ -17,7 +17,7 @@ Chart1dDemo class >> title [
 { #category : #accessing }
 Chart1dDemo >> kinds [
 	^ {ChartPie.
-	ChartDonut.
+	ChartDoughnut.
 	ChartPolar}
 ]
 

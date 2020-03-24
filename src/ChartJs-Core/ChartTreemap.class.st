@@ -7,6 +7,16 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
+{ #category : #accessing }
+ChartTreemap class >> dataFunction [
+	^ 'bars'
+]
+
+{ #category : #accessing }
+ChartTreemap class >> eventsCode [
+	^ 'getBarsAtEvent(evt)'
+]
+
 { #category : #testing }
 ChartTreemap class >> isMultiDataSet [
 	

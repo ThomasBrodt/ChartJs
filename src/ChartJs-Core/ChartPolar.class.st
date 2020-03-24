@@ -17,11 +17,6 @@ ChartPolar class >> eventsCode [
 	^ 'getSegmentsAtEvent(evt)'
 ]
 
-{ #category : #accessing }
-ChartPolar class >> forChartJS [
-	^ 'PolarArea'
-]
-
 { #category : #testing }
 ChartPolar class >> isFor1DValues [
 	^ true

@@ -97,11 +97,6 @@ ChartOptions >> maintainAspectRatio: aBoolean [
 	self at: #maintainAspectRatio put: aBoolean
 ]
 
-{ #category : #converting }
-ChartOptions >> neoJsonOn: neoJSONWriter [
-	neoJSONWriter writeMap: self asDictionary
-]
-
 { #category : #'accessing plugins' }
 ChartOptions >> plugins [
 	^ self at: #plugins

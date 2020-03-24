@@ -7,14 +7,14 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
-{ #category : #ChartJs }
+{ #category : #actions }
 ChartType class >> addOptionKey: aKey to: aDictionary for: aDataSet [
 	aDataSet styleSheet
 		get: aKey
 		ifPresent: [:val | aDictionary at: aKey put: val forChartJs]
 ]
 
-{ #category : #ChartJs }
+{ #category : #actions }
 ChartType class >> addOptionsTo: aDictionary for: aDataSet [
 	self optionKeys
 		do: [:eachKey |
@@ -24,7 +24,7 @@ ChartType class >> addOptionsTo: aDictionary for: aDataSet [
 				for: aDataSet]
 ]
 
-{ #category : #ChartJs }
+{ #category : #actions }
 ChartType class >> addStyleSheetKey: aKey to: aDictionary for: aDataSet [
 
 	(self hasStyleSheetForValuesIn: aDataSet)
@@ -40,7 +40,7 @@ ChartType class >> addStyleSheetKey: aKey to: aDictionary for: aDataSet [
 				ifPresent: [:val | aDictionary at: aKey put: val forChartJs]]
 ]
 
-{ #category : #ChartJs }
+{ #category : #actions }
 ChartType class >> addStyleSheetTo: aDictionary for: aDataSet [
 	self styleSheetKeys
 		do: [:eachKey |
@@ -55,18 +55,13 @@ ChartType class >> cssClass [
 	^ 'chartjs-charttype-', self typeName
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartType class >> dataFunction [
 	^ self subclassResponsibility 
 ]
 
-{ #category : #ChartJs }
+{ #category : #accessing }
 ChartType class >> eventsCode [
-	^ self subclassResponsibility 
-]
-
-{ #category : #ChartJs }
-ChartType class >> forChartJS [
 	^ self subclassResponsibility 
 ]
 

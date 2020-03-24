@@ -7,6 +7,16 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
+{ #category : #accessing }
+ChartHorizontalBar class >> dataFunction [
+	^ 'bars'
+]
+
+{ #category : #accessing }
+ChartHorizontalBar class >> eventsCode [
+	^ 'getBarsAtEvent(evt)'
+]
+
 { #category : #testing }
 ChartHorizontalBar class >> isMultiDataSet [
 	^ true

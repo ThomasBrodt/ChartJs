@@ -17,11 +17,6 @@ ChartPie class >> eventsCode [
 	^ 'getSegmentsAtEvent(evt)'
 ]
 
-{ #category : #accessing }
-ChartPie class >> forChartJS [
-	^ 'Pie'
-]
-
 { #category : #testing }
 ChartPie class >> isFor1DValues [
 	^ true

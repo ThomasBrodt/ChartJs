@@ -7,6 +7,16 @@ Class {
 	#category : #'ChartJs-Core-Types'
 }
 
+{ #category : #accessing }
+ChartCandlestick class >> dataFunction [
+	^ 'bars'
+]
+
+{ #category : #accessing }
+ChartCandlestick class >> eventsCode [
+	^ 'getBarsAtEvent(evt)'
+]
+
 { #category : #testing }
 ChartCandlestick class >> isMultiDataSet [
 	^ true

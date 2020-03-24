@@ -44,16 +44,20 @@ ChartDataSetSequence >> neoJsonDataOn: aJsonMapWriter [
 
 { #category : #exchange }
 ChartDataSetSequence >> neoJsonStyleSheetOn: aJsonMapWriter [
-	
 	self chartType styleSheetKeys
-		do: [:e |
+		do: [ :e | 
 			self hasStyleSheetForValues
-				ifTrue: [
-					| coll |
-					coll := self dataValues collect: [:dv | dv styleSheet get: e ifAbsent: [self styleSheet get: e ifAbsent: []]].
+				ifTrue: [ | coll |
+					coll := self dataValues
+						collect: [ :dv | 
+							dv styleSheet
+								get: e
+								ifAbsent: [ self styleSheet get: e ifAbsent: [  ] ] ].
 					(coll allSatisfy: #notNil)
-						ifTrue: [aJsonMapWriter writeKey: e value: (coll collect: #forChartJs)]]
-				ifFalse: [self styleSheet get: e ifPresent: [:val | aJsonMapWriter writeKey: e value: val forChartJs]]]
+						ifTrue: [ aJsonMapWriter writeKey: e value: (coll collect: #forChartJs) ] ]
+				ifFalse: [ self styleSheet
+						get: e
+						ifPresent: [ :val | aJsonMapWriter writeKey: e value: val forChartJs ] ] ]
 ]
 
 { #category : #accessing }

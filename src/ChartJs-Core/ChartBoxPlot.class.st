@@ -17,11 +17,6 @@ ChartBoxPlot class >> eventsCode [
 	^ 'getBarsAtEvent(evt)'
 ]
 
-{ #category : #accessing }
-ChartBoxPlot class >> forChartJS [
-	^ 'BoxPlot'
-]
-
 { #category : #testing }
 ChartBoxPlot class >> isMultiDataSet [
 	^ true

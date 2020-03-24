@@ -43,7 +43,7 @@ ChartJsLibrary class >> asSelector: aFilename [
 								ifFalse: [char asLowercase]).
 					theFlag := false]
 				ifFalse: [
-					(#($/ $\ $.) includes: char)
+					('/\.-' includes: char)
 						ifTrue: [theFlag := true]]].
 
 	^ (theStream contents , extension) asSymbol

@@ -17,11 +17,6 @@ ChartRadar class >> eventsCode [
 	^ 'getPointsAtEvent(evt)'
 ]
 
-{ #category : #accessing }
-ChartRadar class >> forChartJS [
-	^ 'Radar'
-]
-
 { #category : #testing }
 ChartRadar class >> hasStyleSheetForValuesIn: aDataSet [
 	^ false

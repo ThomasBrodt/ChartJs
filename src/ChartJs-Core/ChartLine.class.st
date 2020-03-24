@@ -17,11 +17,6 @@ ChartLine class >> eventsCode [
 	^ 'getPointsAtEvent(evt)'
 ]
 
-{ #category : #accessing }
-ChartLine class >> forChartJS [
-	^ 'Line'
-]
-
 { #category : #testing }
 ChartLine class >> hasStyleSheetForValuesIn: aDataSet [
 	^ false
