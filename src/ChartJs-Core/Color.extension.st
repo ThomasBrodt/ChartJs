@@ -18,9 +18,9 @@ Color >> blendWith: aColorValue weight: wt [
 
 	| rv gv bv invWt |
 	invWt := 1 - wt.
-	rv := (self red * invWt + (aColorValue red * wt)) rounded.
-	gv := (self green * invWt + (aColorValue green * wt)) rounded.
-	bv := (self blue * invWt + (aColorValue blue * wt)) rounded.
+	rv := (self red * invWt + (aColorValue red * wt)).
+	gv := (self green * invWt + (aColorValue green * wt)).
+	bv := (self blue * invWt + (aColorValue blue * wt)).
 	^ self class r: rv g: gv b: bv
 ]
 

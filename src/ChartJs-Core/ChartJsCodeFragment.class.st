@@ -147,7 +147,7 @@ ChartJsCodeFragment >> greaseString [
 { #category : #converting }
 ChartJsCodeFragment >> neoJsonOn: writer [
 	
-	writer nextPut: self greaseString
+	writer chartJsWriteJavascript: self greaseString
 ]
 
 { #category : #accessing }

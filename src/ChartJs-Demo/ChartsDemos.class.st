@@ -292,5 +292,6 @@ ChartsDemos >> updateRoot: anHtmlRoot [
 		beStylesheet;
 		url: 'https://fonts.googleapis.com/css?family=Roboto'.
 	anHtmlRoot title: 'ChartJs Demo - ' , self class version.
-	anHtmlRoot addStyle: self styleChartJs
+	anHtmlRoot addStyle: self styleChartJs.
+	self currentDemo updateRoot: anHtmlRoot
 ]
