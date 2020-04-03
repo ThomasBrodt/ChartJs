@@ -43,6 +43,61 @@ ChartSampleData class >> data2 [
 ]
 
 { #category : #'sample data' }
+ChartSampleData class >> dataByLabels [
+
+	| dict |
+	dict := Dictionary new.
+	self labels doWithIndex: [:e :i | dict at: e put: (self data collect: [:c | c value at: i])].
+	^ dict
+]
+
+{ #category : #'sample data' }
+ChartSampleData class >> dataDictionary [
+	^ Dictionary new
+		at: 'Guillaume'
+			put:
+			(Dictionary new
+				at: 'Eating' put: 65;
+				at: 'Drinking' put: 59;
+				at: 'Sleeping' put: 90;
+				at: 'Designing' put: 81;
+				at: 'Coding' put: 56;
+				at: 'Cycling' put: 55;
+				at: 'Running' put: 40;
+				yourself);
+		at: 'Cyril'
+			put:
+			(Dictionary new
+				at: 'Eating' put: 80;
+				at: 'Drinking' put: 100;
+				at: 'Sleeping' put: 70;
+				at: 'Designing' put: 50;
+				at: 'Coding' put: 40;
+				at: 'Cycling' put: 10;
+				at: 'Running' put: 25;
+				yourself);
+		yourself
+]
+
+{ #category : #'sample data' }
+ChartSampleData class >> dataEntries [
+	| coll |
+	coll := OrderedCollection new.
+	self dataDictionary
+		keysAndValuesDo: [ :eachName :eachDict | 
+			eachDict
+				keysAndValuesDo: [ :eachActivity :eachValue | 
+					coll
+						add:
+							(ChartSampleDataEntry new
+								name: eachName;
+								activity: eachActivity;
+								amount: eachValue;
+								yourself) ] ].
+	^ coll
+]
+
+{ #category : #'sample data' }
 ChartSampleData class >> dataSet1 [
 	^ ChartDataSetSequence name: self data1 key sequence: self data1 value
 ]
@@ -55,4 +110,9 @@ ChartSampleData class >> dataSets [
 { #category : #'sample data' }
 ChartSampleData class >> labels [
 	^ #('Eating' 'Drinking' 'Sleeping' 'Designing' 'Coding' 'Cycling' 'Running')
+]
+
+{ #category : #'sample data' }
+ChartSampleData class >> names [
+	^ #('Guillaume' 'Cyril')
 ]

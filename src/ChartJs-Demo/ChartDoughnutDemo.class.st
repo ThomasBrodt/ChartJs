@@ -19,8 +19,18 @@ ChartDoughnutDemo class >> title [
 
 { #category : #rendering }
 ChartDoughnutDemo >> renderChartJsComponentOn: html [
-
-	html heading
-		level: 3;
-		with: ['to be done']
+	| chartData chartOptions |
+	chartData := Chart2dData new chartType: ChartDoughnut.
+	chartData xObjects: ChartSampleData labels.
+	chartData dataSets: ChartSampleData dataSets.
+	chartOptions := ChartOptions new
+		legendDisplay: true;
+		legendPosition: #right.
+	html div
+		with: [ html chartJsChart
+				maxHeight: 200 printString , 'px';
+				maxWidth: 500 printString , 'px';
+				data: chartData;
+				options: chartOptions;
+				callback: [ :value :label | value -> label ] ]
 ]

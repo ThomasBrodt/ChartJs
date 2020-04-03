@@ -44,14 +44,15 @@ ChartDataSetTree >> neoJsonDataOn: aJsonMapWriter [
 ]
 
 { #category : #converting }
-ChartDataSetTree >> neoJsonOn: aJsonMapWriter [
+ChartDataSetTree >> neoJsonOn: aJsonWriter [
 	
-	aJsonMapWriter writeKey: #key value: (key ifNil: '').
-	aJsonMapWriter writeKey:  #groups value: (groups ifNil: #()).
-	self neoJsonDataOn: aJsonMapWriter.
-	self neoJsonOptionsOn: aJsonMapWriter.
-	self neoJsonStyleSheetOn: aJsonMapWriter.
-	self neoJsonChartOptionsOn: aJsonMapWriter
+	aJsonWriter writeMapStreamingDo: [:aJsonMapWriter |
+		aJsonMapWriter writeKey: #key value: (key ifNil: '').
+		aJsonMapWriter writeKey:  #groups value: (groups ifNil: #()).
+		self neoJsonDataOn: aJsonMapWriter.
+		self neoJsonOptionsOn: aJsonMapWriter.
+		self neoJsonStyleSheetOn: aJsonMapWriter.
+		self neoJsonChartOptionsOn: aJsonMapWriter]
 ]
 
 { #category : #exchange }

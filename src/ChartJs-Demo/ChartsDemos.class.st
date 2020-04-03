@@ -22,10 +22,8 @@ ChartsDemos class >> initialize [
 		addLibrary: ChartJsLibrary;
 		addLibrary: ChartJsPluginBoxPlotLibrary;
 		addLibrary: ChartJsPluginChartFinancialLibrary;
-		addLibrary: ChartJsPluginDatalabelsLibrary;
 		addLibrary: ChartJsPluginDoughnutLabelLibrary;
 		addLibrary: ChartJsPluginLabelsLibrary;
-		addLibrary: ChartJsPluginStacked100Library;
 		addLibrary: ChartJsPluginTreemapLibrary
 ]
 

@@ -24,3 +24,9 @@ ChartDatalabelsDemo >> renderChartJsComponentOn: html [
 		level: 3;
 		with: ['to be done']
 ]
+
+{ #category : #updating }
+ChartDatalabelsDemo >> updateRoot: html [
+	super updateRoot: html.
+	ChartJsPluginDatalabelsLibrary default updateRoot: html
+]

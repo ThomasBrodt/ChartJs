@@ -25,6 +25,17 @@ Class {
 	#category : #'ChartJs-Core-Component'
 }
 
+{ #category : #'class initialization' }
+ChartJsChartBrush class >> initialize [
+	DefaultCssClassForCanvas := #chartJsCanvas.
+	DefaultCssClassForCanvasDiv := #chartJsCanvasDiv.
+	DefaultCssClassForChartDiv :=  #chartJsChart.
+	DefaultIdPrefixForCanvas := #chartJsCanvas.
+	DefaultIdPrefixForCanvasDiv := #chartJsCanvasDiv.
+	DefaultIdPrefixForChartDiv := #chartJsChart.
+	DefaultUsePositionRelative := true
+]
+
 { #category : #private }
 ChartJsChartBrush >> addCallback [
 	
