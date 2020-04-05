@@ -1,26 +1,23 @@
-"
-ChartDoughnutDemo shows an example of the doughnut chart type of chart.js
-"
 Class {
-	#name : #ChartDoughnutDemo,
+	#name : #ChartPieDemo,
 	#superclass : #ChartAbstractDemo,
 	#category : #'ChartJs-Demo'
 }
 
 { #category : #accessing }
-ChartDoughnutDemo class >> description [
-	^ 'Show data in the form of a doughnut.'
+ChartPieDemo class >> description [
+	^ 'Show data in the form of a pie.'
 ]
 
 { #category : #accessing }
-ChartDoughnutDemo class >> title [
-	^ '- Doughnut'
+ChartPieDemo class >> title [
+	^ '- Pie'
 ]
 
 { #category : #rendering }
-ChartDoughnutDemo >> renderChartJsComponentOn: html [
+ChartPieDemo >> renderChartJsComponentOn: html [
 	| chartData chartOptions |
-	chartData := Chart2dData new chartType: ChartDoughnut.
+	chartData := Chart2dData new chartType: ChartPie.
 	chartData xObjects: ChartSampleData labels.
 	chartData dataSets: ChartSampleData dataSets.
 	chartOptions := ChartOptions new

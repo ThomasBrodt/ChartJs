@@ -14,7 +14,7 @@ ChartTreemapDemo class >> description [
 
 { #category : #accessing }
 ChartTreemapDemo class >> title [
-	^ 'Treemap'
+	^ '- Treemap'
 ]
 
 { #category : #rendering }

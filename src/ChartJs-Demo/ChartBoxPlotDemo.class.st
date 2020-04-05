@@ -14,7 +14,7 @@ ChartBoxPlotDemo class >> description [
 
 { #category : #accessing }
 ChartBoxPlotDemo class >> title [
-	^ 'Box plot'
+	^ '- Box plot'
 ]
 
 { #category : #rendering }

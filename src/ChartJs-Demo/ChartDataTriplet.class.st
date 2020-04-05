@@ -15,9 +15,9 @@ Class {
 { #category : #'instance creation' }
 ChartDataTriplet class >> fromColor: aColor [
 	^ self
-		x: aColor red * 255
-		y: aColor green * 255
-		z: aColor blue * 255
+		x: (aColor red * 255) floor
+		y: (aColor green * 255) floor
+		z: (aColor blue * 255) floor
 ]
 
 { #category : #'instance creation' }
@@ -36,6 +36,19 @@ ChartDataTriplet >> neoJsonOn: writer [
 			mapWriter writeKey: #x value: x.
 			mapWriter writeKey: #y value: y.
 			mapWriter writeKey: #z value: z]
+]
+
+{ #category : #'accessing structure variables' }
+ChartDataTriplet >> printOn: aStream [
+	super printOn: aStream.
+	aStream
+		nextPut: $(;
+		print: x;
+		nextPut: $;;
+		print: y;
+		nextPut: $;;
+		print: z;
+		nextPut: $)
 ]
 
 { #category : #'accessing structure variables' }

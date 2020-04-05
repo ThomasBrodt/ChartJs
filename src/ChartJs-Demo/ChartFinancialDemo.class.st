@@ -14,7 +14,7 @@ ChartFinancialDemo class >> description [
 
 { #category : #accessing }
 ChartFinancialDemo class >> title [
-	^ 'Financial'
+	^ '- Financial'
 ]
 
 { #category : #rendering }

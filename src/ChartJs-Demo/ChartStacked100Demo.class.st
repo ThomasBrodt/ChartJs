@@ -14,7 +14,7 @@ ChartStacked100Demo class >> description [
 
 { #category : #accessing }
 ChartStacked100Demo class >> title [
-	^ 'Stacked100'
+	^ '- Stacked100'
 ]
 
 { #category : #rendering }

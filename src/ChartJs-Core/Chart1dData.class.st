@@ -25,7 +25,7 @@ Chart1dData class >> dictionary: aDictionary valueDisplayBlock: aBlockOrSymbol [
 { #category : #'instance creation' }
 Chart1dData class >> values: aCollectionOfAssociations [
 	^ self new
-		datas: (aCollectionOfAssociations collect: [ :asso | ChartDataValue value: asso value name: asso key ]);
+		datas: (aCollectionOfAssociations collect: [ :asso | ChartDataValue value: asso value name: asso key color: Color random]);
 		yourself
 ]
 
@@ -75,8 +75,20 @@ Chart1dData >> initialize [
 
 { #category : #converting }
 Chart1dData >> neoJsonOn: writer [
-	writer writeListStreamingDo: [ :jsonListWriter |
-		self datas do: [ :each | each neoJsonOn: writer displayBlock: self valueDisplayBlock] separatedBy: [ writer listElementSeparator ] ]
+	writer
+		writeMapStreamingDo: [ :jsonMapWriter | 
+			jsonMapWriter
+				writeKey: #labels
+				value: (datas collect: [ :e | e name ]).
+			jsonMapWriter
+				writeKey: #datasets
+				value:
+					(Array
+						with:
+							(Dictionary new
+								at: #data put: (datas collect: [ :e | e value ]);
+								at: #backgroundColor put: (datas collect: [ :e | e color forChartJs]);
+								yourself)) ]
 ]
 
 { #category : #accessing }

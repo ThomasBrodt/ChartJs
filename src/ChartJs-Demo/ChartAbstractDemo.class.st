@@ -6,7 +6,15 @@ Class {
 
 { #category : #accessing }
 ChartAbstractDemo class >> demos [
-	^ (self allSubclasses reject: #isAbstract) sorted: [ :a :b | a title < b title ]
+	^ (self allSubclasses reject: #isAbstract)
+		sorted: [ :a :b | 
+			a title first = $-
+				ifTrue: [ b title first = $-
+						ifTrue: [ a title < b title ]
+						ifFalse: [ false ] ]
+				ifFalse: [ b title first = $-
+						ifTrue: [ true ]
+						ifFalse: [ a title < b title ] ] ]
 ]
 
 { #category : #accessing }

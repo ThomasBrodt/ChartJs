@@ -1,3 +1,11 @@
+"
+A simple Object representing data for the chart.js demos
+ 
+    Instance Variables
+	name:			<String> the name who is doing something 
+	activity:		<String> the kind of activity that is done
+	amount:		<Object> the amount of time spent for the activity
+"
 Class {
 	#name : #ChartSampleDataEntry,
 	#superclass : #Object,

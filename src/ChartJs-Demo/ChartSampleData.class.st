@@ -109,10 +109,10 @@ ChartSampleData class >> dataSets [
 
 { #category : #'sample data' }
 ChartSampleData class >> labels [
-	^ #('Eating' 'Drinking' 'Sleeping' 'Designing' 'Coding' 'Cycling' 'Running')
+	^ (self dataDictionary at: self dataDictionary keys first) keys
 ]
 
 { #category : #'sample data' }
 ChartSampleData class >> names [
-	^ #('Guillaume' 'Cyril')
+	^ self dataDictionary keys sort
 ]
