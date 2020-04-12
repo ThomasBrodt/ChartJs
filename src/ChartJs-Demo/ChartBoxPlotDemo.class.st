@@ -3,7 +3,7 @@ ChartBoxPlotDemo shows an example of the box plot chart type of chart.js
 "
 Class {
 	#name : #ChartBoxPlotDemo,
-	#superclass : #ChartAbstractDemo,
+	#superclass : #ChartTypeDemo,
 	#category : #'ChartJs-Demo'
 }
 
@@ -19,7 +19,7 @@ ChartBoxPlotDemo class >> title [
 
 { #category : #rendering }
 ChartBoxPlotDemo >> renderChartJsComponentOn: html [
-	| chartData chartData2 |
+	| chartData chartData2 chartOptions |
 	chartData := Chart2dData
 		xObjects: #(Guillaume Cyril)
 		function: [ :aPlayer | 
@@ -30,13 +30,19 @@ ChartBoxPlotDemo >> renderChartJsComponentOn: html [
 				thirdQuartile: (16 to: 20) atRandom
 				highest: (21 to: 25) atRandom ].
 	chartData chartType: ChartBoxPlot.
-	html render: (ChartJsComponent data: chartData).
-	
+	chartOptions := ChartOptions new 
+		responsive: true;
+		legendPosition: 'top'.
+	html div
+		with: [ html chartJsChart
+				maxHeight: '200px';
+				maxWidth: '500px';
+				data: chartData;
+				options: chartOptions;
+				callback: [ :value :label | value -> label ] ].
 	
 	chartData2 := Chart2dData
-		xObjects:
-			{Collection.
-			Magnitude}
+		xObjects: { Collection . Magnitude }
 		function: [ :class | ChartBoxPlotData for: class allSubclasses using: [ :c | c methods size ] ].
 	chartData2 chartType: ChartBoxPlot; keyDisplayBlock: #printString.
 	html render: (ChartJsComponent data: chartData2)

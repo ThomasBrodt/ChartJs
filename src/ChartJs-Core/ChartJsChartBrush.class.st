@@ -58,7 +58,7 @@ ChartJsChartBrush >> callbackScript: aChartCanvas callback: aCallback [
 				cr;
 				nextPutAll: 'var activePointIndex = 0;';
 				cr;
-				nextPutAll: 'if (activeElement.size > 0) {activePointIndex = activeElement[0]._index};';
+				nextPutAll: 'if (activeElement.length > 0) {activePointIndex = activeElement[0]._index};';
 				cr;
 				nextPutAll: '// add 1 because Smalltalk starts at 1 and Javascript at 0';
 				cr;

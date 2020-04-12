@@ -1,9 +1,11 @@
 "
-ChartFinancialDemo shows an example of the financial chart type of chart.js
+updateRoot: html
+	super updateRoot: html.
+	ChartJsPluginFinancialLibrary default updateRoot: html
 "
 Class {
 	#name : #ChartFinancialDemo,
-	#superclass : #ChartAbstractDemo,
+	#superclass : #ChartTypeDemo,
 	#category : #'ChartJs-Demo'
 }
 
@@ -23,4 +25,10 @@ ChartFinancialDemo >> renderChartJsComponentOn: html [
 	html heading
 		level: 3;
 		with: ['to be done']
+]
+
+{ #category : #updating }
+ChartFinancialDemo >> updateRoot: html [
+	super updateRoot: html.
+	ChartJsPluginChartFinancialLibrary default updateRoot: html
 ]

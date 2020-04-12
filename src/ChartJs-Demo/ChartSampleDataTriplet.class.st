@@ -2,9 +2,9 @@
 ChartDataTriplet is a sample data structure with x, y and z as part of the three rgb values from a Color
 "
 Class {
-	#name : #ChartDataTriplet,
+	#name : #ChartSampleDataTriplet,
 	#superclass : #Object,
-	#classVars : [
+	#instVars : [
 		'x',
 		'y',
 		'z'
@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-ChartDataTriplet class >> fromColor: aColor [
+ChartSampleDataTriplet class >> fromColor: aColor [
 	^ self
 		x: (aColor red * 255) floor
 		y: (aColor green * 255) floor
@@ -21,7 +21,7 @@ ChartDataTriplet class >> fromColor: aColor [
 ]
 
 { #category : #'instance creation' }
-ChartDataTriplet class >> x: xArg y: yArg z: zArg [
+ChartSampleDataTriplet class >> x: xArg y: yArg z: zArg [
 	^ self new
 		x: xArg;
 		y: yArg;
@@ -30,7 +30,7 @@ ChartDataTriplet class >> x: xArg y: yArg z: zArg [
 ]
 
 { #category : #converting }
-ChartDataTriplet >> neoJsonOn: writer [
+ChartSampleDataTriplet >> neoJsonOn: writer [
 	writer
 		writeMapStreamingDo: [ :mapWriter | 
 			mapWriter writeKey: #x value: x.
@@ -39,7 +39,7 @@ ChartDataTriplet >> neoJsonOn: writer [
 ]
 
 { #category : #'accessing structure variables' }
-ChartDataTriplet >> printOn: aStream [
+ChartSampleDataTriplet >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPut: $(;
@@ -52,31 +52,31 @@ ChartDataTriplet >> printOn: aStream [
 ]
 
 { #category : #'accessing structure variables' }
-ChartDataTriplet >> x [
+ChartSampleDataTriplet >> x [
 	^ x
 ]
 
 { #category : #'accessing structure variables' }
-ChartDataTriplet >> x: xArg [
+ChartSampleDataTriplet >> x: xArg [
 	x := xArg
 ]
 
 { #category : #'accessing structure variables' }
-ChartDataTriplet >> y [
+ChartSampleDataTriplet >> y [
 	^ y
 ]
 
 { #category : #'accessing structure variables' }
-ChartDataTriplet >> y: yArg [
+ChartSampleDataTriplet >> y: yArg [
 	y := yArg
 ]
 
 { #category : #'accessing structure variables' }
-ChartDataTriplet >> z [
+ChartSampleDataTriplet >> z [
 	^ z
 ]
 
 { #category : #'accessing structure variables' }
-ChartDataTriplet >> z: zArg [
+ChartSampleDataTriplet >> z: zArg [
 	z := zArg
 ]

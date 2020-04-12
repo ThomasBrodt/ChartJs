@@ -195,17 +195,6 @@ ChartStyleSheet >> borderWidth: aNumber [
 	^ self at: #borderWidth put: aNumber
 ]
 
-{ #category : #'as yet unclassified' }
-ChartStyleSheet >> charDataSetNeoJsonObjectForKeys: aCollectionOfXObjects values: values label: aLabel [
-	^ #(#fillColor #strokeColor #pointColor #pointStrokeColor #pointHighlightFill #pointHighlightStroke)
-		inject: Dictionary new
-		into: [ :dico :aStyleSelector | 
-			[ dico at: aStyleSelector put: (self obtainValue: aStyleSelector value forKeys: aCollectionOfXObjects andValues: values andLabel: aLabel) forChartJs ]
-				on: NotFound
-				do: [  ].
-			dico ]
-]
-
 { #category : #'chart type' }
 ChartStyleSheet >> chartType [
 	^ self get: #chartType

@@ -3,7 +3,7 @@ ChartStacked100Demo shows an example of the stacked100 plugin for the bar chart 
 "
 Class {
 	#name : #ChartStacked100Demo,
-	#superclass : #ChartAbstractDemo,
+	#superclass : #ChartTypeDemo,
 	#category : #'ChartJs-Demo'
 }
 

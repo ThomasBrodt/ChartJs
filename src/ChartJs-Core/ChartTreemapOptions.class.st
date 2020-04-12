@@ -50,6 +50,12 @@ ChartTreemapOptions >> fontStyle: aString [
 ]
 
 { #category : #accessing }
+ChartTreemapOptions >> fontWeight: aString [
+	
+	self at: #fontWeight put: aString
+]
+
+{ #category : #accessing }
 ChartTreemapOptions >> hoverBackgroundColor: aString [
 	
 	self at: #hoverBackgroundColor put: aString

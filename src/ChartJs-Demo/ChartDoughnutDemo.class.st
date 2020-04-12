@@ -3,7 +3,7 @@ ChartDoughnutDemo shows an example of the doughnut chart type of chart.js
 "
 Class {
 	#name : #ChartDoughnutDemo,
-	#superclass : #ChartAbstractDemo,
+	#superclass : #ChartTypeDemo,
 	#category : #'ChartJs-Demo'
 }
 
@@ -23,6 +23,10 @@ ChartDoughnutDemo >> renderChartJsComponentOn: html [
 	chartData := Chart2dData new chartType: ChartDoughnut.
 	chartData xObjects: ChartSampleData labels.
 	chartData dataSets: ChartSampleData dataSets.
+	chartData
+		styleSheets:
+			(ChartSampleData labels
+				collect: [ :e | ChartStyleSheet chartDataSetDefault ]).
 	chartOptions := ChartOptions new
 		legendDisplay: true;
 		legendPosition: #right.

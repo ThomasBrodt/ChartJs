@@ -8,23 +8,28 @@ Class {
 }
 
 { #category : #'sample data' }
+ChartSampleData class >> activities [
+	^ (self dataDictionary at: self dataDictionary keys first) keys
+]
+
+{ #category : #'sample data' }
 ChartSampleData class >> bubbleData [
 	^ Array with: self bubbleData1 with: self bubbleData2
 ]
 
 { #category : #'sample data' }
 ChartSampleData class >> bubbleData1 [
-	^ 'First dataset' -> ((1 to: 8) collect: [:e | ChartDataTriplet fromColor: Color random])
+	^ 'First dataset' -> ((1 to: 8) collect: [:e | ChartSampleDataTriplet fromColor: Color random])
 ]
 
 { #category : #'sample data' }
 ChartSampleData class >> bubbleData2 [
-	^ 'Second dataset' -> ((1 to: 8) collect: [:e | ChartDataTriplet fromColor: Color random])
+	^ 'Second dataset' -> ((1 to: 8) collect: [:e | ChartSampleDataTriplet fromColor: Color random])
 ]
 
 { #category : #'sample data' }
 ChartSampleData class >> bubbleData3 [
-	^ 'Third dataset' -> ((1 to: 8) collect: [:e | ChartDataTriplet fromColor: Color random])
+	^ 'Third dataset' -> ((1 to: 8) collect: [:e | ChartSampleDataTriplet fromColor: Color random])
 ]
 
 { #category : #'sample data' }

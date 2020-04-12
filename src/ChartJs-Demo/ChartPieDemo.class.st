@@ -1,6 +1,9 @@
+"
+ChartPieDemo shows an example of the pie chart type of chart.js
+"
 Class {
 	#name : #ChartPieDemo,
-	#superclass : #ChartAbstractDemo,
+	#superclass : #ChartTypeDemo,
 	#category : #'ChartJs-Demo'
 }
 
@@ -20,6 +23,10 @@ ChartPieDemo >> renderChartJsComponentOn: html [
 	chartData := Chart2dData new chartType: ChartPie.
 	chartData xObjects: ChartSampleData labels.
 	chartData dataSets: ChartSampleData dataSets.
+	chartData
+		styleSheets:
+			(ChartSampleData labels
+				collect: [ :e | ChartStyleSheet chartDataSetDefault ]).
 	chartOptions := ChartOptions new
 		legendDisplay: true;
 		legendPosition: #right.

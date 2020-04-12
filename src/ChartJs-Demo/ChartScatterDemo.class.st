@@ -1,6 +1,9 @@
+"
+ChartBubbleDemo shows an example of the scatter plot chart type of chart.js
+"
 Class {
 	#name : #ChartScatterDemo,
-	#superclass : #ChartAbstractDemo,
+	#superclass : #ChartTypeDemo,
 	#category : #'ChartJs-Demo'
 }
 

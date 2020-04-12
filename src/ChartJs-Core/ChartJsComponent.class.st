@@ -56,7 +56,7 @@ ChartJsComponent >> callbackMechanism: canvasId actionUrl: anUrl cb: cb eventsCo
 				<< ('	var activePointIndex = myChart' , canvasId);
 				<<
 					(self data chartType isMultiDataSet
-						ifTrue: [ '.datasets[0].' ]
+						ifTrue: [ '.data.datasets[0].' ]
 						ifFalse: [ '.' ]);
 				<< self data chartType dataFunction;
 				<< '.indexOf(myChart';

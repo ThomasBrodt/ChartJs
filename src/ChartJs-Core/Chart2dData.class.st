@@ -26,7 +26,7 @@ Chart2dData class >> pointDataSets: aCollection [
 Chart2dData class >> xObjects: aCollectionOfObjects function: aBlock [
 	^ self new
 		xObjects: aCollectionOfObjects;
-		dataSets: {(ChartDataSetFunction function: aBlock)};
+		dataSets: (aCollectionOfObjects collect: [:e | ChartDataSetFunction new name: e printString; function: aBlock; argument: e]);
 		yourself
 ]
 

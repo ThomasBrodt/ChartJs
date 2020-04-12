@@ -24,6 +24,11 @@ ChartTreemap class >> isMultiDataSet [
 ]
 
 { #category : #accessing }
+ChartTreemap class >> styleSheetKeys [
+	^ #()
+]
+
+{ #category : #accessing }
 ChartTreemap class >> typeName [
 	
 	^ 'treemap'

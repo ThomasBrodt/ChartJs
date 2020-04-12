@@ -23,6 +23,11 @@ ChartBoxPlot class >> isMultiDataSet [
 ]
 
 { #category : #accessing }
+ChartBoxPlot class >> styleSheetKeys [
+	^ #()
+]
+
+{ #category : #accessing }
 ChartBoxPlot class >> typeName [
 	
 	^ 'boxplot'

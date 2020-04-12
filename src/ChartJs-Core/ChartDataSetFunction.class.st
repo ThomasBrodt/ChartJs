@@ -5,7 +5,8 @@ Class {
 	#name : #ChartDataSetFunction,
 	#superclass : #ChartDataSet,
 	#instVars : [
-		'function'
+		'function',
+		'argument'
 	],
 	#category : #'ChartJs-Core-Model'
 }
@@ -18,10 +19,27 @@ ChartDataSetFunction class >> function: aBlock [
 ]
 
 { #category : #'instance creation' }
+ChartDataSetFunction class >> function: aBlockClosure argument: anArg [
+	^ (self function: aBlockClosure)
+		argument: anArg;
+		yourself
+]
+
+{ #category : #'instance creation' }
 ChartDataSetFunction class >> function: aBlockClosure color: aColor [
 	^ (self function: aBlockClosure)
 		color: aColor;
 		yourself
+]
+
+{ #category : #accessing }
+ChartDataSetFunction >> argument [
+	^ argument
+]
+
+{ #category : #accessing }
+ChartDataSetFunction >> argument: anObject [
+	argument := anObject
 ]
 
 { #category : #accessing }
@@ -44,9 +62,21 @@ ChartDataSetFunction >> function: anObject [
 	function := anObject
 ]
 
-{ #category : #converting }
+{ #category : #'as yet unclassified' }
 ChartDataSetFunction >> neoJsonDataOn: aWriter [
 
-	self flag: 'Not yet implemented'.
-	aWriter writeKey: #data value: #() "tbd: calculate values for function"
+	aWriter writeKey: #data value: (self function value: self argument)
+]
+
+{ #category : #'as yet unclassified' }
+ChartDataSetFunction >> neoJsonOn: writer [
+	
+	writer
+		writeMapStreamingDo: [ :jsonMapWriter | 
+			jsonMapWriter writeKey: #label value: self name.
+			self neoJsonDataOn: jsonMapWriter.
+			self neoJsonStyleSheetOn: jsonMapWriter.
+			self neoJsonOptionsOn: jsonMapWriter]
+		
+	
 ]
